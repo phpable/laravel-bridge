@@ -1,0 +1,26 @@
+{
+	"name": "able/laravel-bridge",
+	"version": "1.0",
+	"type": "library",
+	"keywords": ["phpable", "laravel", "bridge"],
+	"description": "phpABLE bridge for Laravel framework",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "hacpaka",
+			"email": "hacpaka@eggbe.com"
+		}
+	],
+	"require": {
+		"php": ">=7.2.0",
+		"able/helpers": "dev-master",
+		"able/io": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Able\\LaravelBridge\\": "src/"
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}
