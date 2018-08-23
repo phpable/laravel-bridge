@@ -70,12 +70,13 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 			return true;
 		}
 
+		$compiled = $this->getCompiledPath($path);
 		foreach ($Manifest->toFile()->toReader()->read() as $filepath){
 			if (!is_file($path)){
 				return true;
 			}
 
-			if ($this->files->lastModified($path) >= $this->files->lastModified(trim($filepath))) {
+			if ($this->files->lastModified(trim($filepath)) >= $this->files->lastModified(trim($compiled))) {
 				return true;
 			}
 		}
