@@ -12,6 +12,8 @@ use \Able\IO\Directory;
 
 use \Able\Sabre\Standard\Delegate;
 
+use \Able\Helpers\Arr;
+
 class StandardCompiler extends ACompiler implements CompilerInterface {
 
 	/**
@@ -32,6 +34,16 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
  	}
 
 	/**
+	 * Get the path to the view minifest.
+	 *
+	 * @param  string $path
+	 * @return string
+	 */
+	public function getManifestPath(string $path): string {
+		return $this->cachePath . '/' . sha1($path) . '.manifest';
+	}
+
+	/**
 	 * Compile the view at the given path.
 	 *
 	 * @param  string $path
@@ -41,5 +53,33 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 	public final function compile($path) {
 		(new Path($this->getCompiledPath($path)))->forceFile()
 			->purge()->toWriter()->write(Delegate::compile((new Path($path))), Writer::WM_SKIP_EMPTY);
+
+		(new Path($this->getManifestPath($path)))->forceFile()
+			->purge()->toWriter()->write(Arr::iterate(Delegate::history()));
+	}
+
+	/**
+	 * @param string $path
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function isExpired($path): bool {
+		$Manifest = (New Path($this->getManifestPath($path)));
+
+		if (!$Manifest->isExists()){
+			return true;
+		}
+
+		foreach ($Manifest->toFile()->toReader()->read() as $filepath){
+			if (!is_file($path)){
+				return true;
+			}
+
+			if ($this->files->lastModified($path) >= $this->files->lastModified($filepath)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
