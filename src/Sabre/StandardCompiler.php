@@ -75,7 +75,7 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 				return true;
 			}
 
-			if ($this->files->lastModified($path) >= $this->files->lastModified($filepath)) {
+			if ($this->files->lastModified($path) >= $this->files->lastModified(trim($filepath))) {
 				return true;
 			}
 		}
