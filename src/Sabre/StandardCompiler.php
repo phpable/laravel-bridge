@@ -55,7 +55,7 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 			->purge()->toWriter()->write(Delegate::compile((new Path($path))), Writer::WM_SKIP_EMPTY);
 
 		(new Path($this->getManifestPath($path)))->forceFile()
-			->purge()->toWriter()->write(Arr::iterate(Delegate::history()));
+			->purge()->toWriter()->write(Arr::iterate(array_unique(Delegate::history())));
 	}
 
 	/**
