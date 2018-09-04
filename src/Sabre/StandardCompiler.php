@@ -30,7 +30,6 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 	public function __construct(Filesystem $Files, string $cachePath, string $sourcePath){
 		parent::__construct($Files, $cachePath);
 		Delegate::registerSourceDirectory(new Path($sourcePath));
-		Delegate::register((new Path(__DIR__))->append('extensions', 'standard.php')->toFile());
  	}
 
 	/**
