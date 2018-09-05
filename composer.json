@@ -3,7 +3,7 @@
 	"version": "1.0",
 	"type": "library",
 	"keywords": ["phpable", "laravel", "bridge"],
-	"description": "phpABLE bridge for Laravel framework",
+	"description": "Bridge classes to use phpABLE components inside of a Laravel application",
 	"license": "MIT",
 	"authors": [
 		{
