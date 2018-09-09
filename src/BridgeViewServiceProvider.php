@@ -39,6 +39,7 @@ class BridgeViewServiceProvider extends ViewServiceProvider {
 	public function registerEngineResolver(){
 		$this->app->extend('view.engine.resolver', function(EngineResolver $Resolver){
 			$this->registerSabreEngine($Resolver);
+			return $Resolver;
 		});
 	}
 
