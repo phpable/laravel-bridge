@@ -50,11 +50,11 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 	 * @throws \Exception
 	 */
 	public final function compile($path) {
-		(new Path($this->getCompiledPath($path)))->forceFile()
-			->purge()->toWriter()->write(Delegate::compile((new Path($path))), Writer::WM_SKIP_EMPTY);
+		(new Path($this->getCompiledPath($path)))->forceFile()->purge()->toWriter()
+			->write(Delegate::compile((new Path($path))->toFile()->toReader()), Writer::WM_SKIP_EMPTY);
 
-		(new Path($this->getManifestPath($path)))->forceFile()
-			->purge()->toWriter()->write(Arr::iterate(array_unique(Delegate::history())));
+		(new Path($this->getManifestPath($path)))->forceFile()->purge()->toWriter()
+			->write(Arr::iterate(array_unique(Delegate::history())));
 	}
 
 	/**
