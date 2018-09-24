@@ -1,9 +1,10 @@
 <?php
 namespace Able\LaravelBridge;
 
-use \Illuminate\View\Engines\EngineResolver;
-use \Illuminate\View\ViewServiceProvider;
+use \Illuminate\View\Factory;
 use \Illuminate\View\FileViewFinder;
+use \Illuminate\View\ViewServiceProvider;
+use \Illuminate\View\Engines\EngineResolver;
 use \Illuminate\View\Engines\CompilerEngine;
 
 use \Able\LaravelBridge\Sabre\StandardCompiler;
@@ -34,7 +35,10 @@ class BridgeViewServiceProvider extends ViewServiceProvider {
 	public function registerFactory(){
 		parent::registerFactory();
 
-		$this->app['view']->addExtension('sabre', 'sabre-standard');
+		$this->app->extend('view', function(Factory $View){
+			$View->addExtension('sabre', 'sabre-standard');
+			return $View;
+		});
 	}
 
 	/**
