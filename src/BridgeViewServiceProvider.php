@@ -20,8 +20,11 @@ class BridgeViewServiceProvider extends ViewServiceProvider {
 	 * @return void
 	 */
 	public function registerViewFinder() {
-		$this->app->bind('view.finder', function ($app) {
-			return new FileViewFinder($app['files'], $app['config']['view.paths'], ['blade.php', 'php', 'css', 'sabre']);
+		parent::registerViewFinder();
+
+		$this->app->extend('view.finder', function (FileViewFinder $Finder) {
+			$Finder->addExtension('sabre');
+			return $Finder;
 		});
 	}
 
@@ -30,6 +33,7 @@ class BridgeViewServiceProvider extends ViewServiceProvider {
 	 */
 	public function registerFactory(){
 		parent::registerFactory();
+
 		$this->app['view']->addExtension('sabre', 'sabre-standard');
 	}
 
@@ -37,6 +41,8 @@ class BridgeViewServiceProvider extends ViewServiceProvider {
 	 * Extends the engine resolver instance.
 	 */
 	public function registerEngineResolver(){
+		parent::registerEngineResolver();
+
 		$this->app->extend('view.engine.resolver', function(EngineResolver $Resolver){
 			$this->registerSabreEngine($Resolver);
 			return $Resolver;
@@ -62,5 +68,3 @@ class BridgeViewServiceProvider extends ViewServiceProvider {
 		});
 	}
 }
-
-
