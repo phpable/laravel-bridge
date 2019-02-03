@@ -29,7 +29,7 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 	 */
 	public function __construct(Filesystem $Files, string $cachePath, string $sourcePath){
 		parent::__construct($Files, $cachePath);
-		Delegate::registerSourceDirectory(new Path($sourcePath));
+		Delegate::registerSourcePath(new Path($sourcePath));
  	}
 
 	/**
@@ -47,7 +47,7 @@ class StandardCompiler extends ACompiler implements CompilerInterface {
 	 *
 	 * @param  string $path
 	 * @return void
-	 * @throws \Exception
+	 * @throws \Throwable
 	 */
 	public final function compile($path) {
 		(new Path($this->getCompiledPath($path)))->forceFile()->purge()->toWriter()
