@@ -13,8 +13,8 @@
 	],
 	"require": {
 		"php": ">=7.2.0",
-		"able/helpers": "dev-master",
-		"able/io": "dev-master",
+		"able/helpers": "^0.9.1",
+		"able/io": "^0.9.1",
 		"able/sabre-standard": "dev-master"
 
 	},
